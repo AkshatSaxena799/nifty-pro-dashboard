@@ -1,0 +1,27 @@
+{
+  "name": "nifty-options-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Real-time NIFTY Options Intelligence Dashboard — Pure Node.js, no Python",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"node backend/index.js\" \"cd frontend && npm run dev\"",
+    "build": "cd frontend && npm install && npm run build",
+    "start": "NODE_ENV=production node backend/index.js",
+    "install:all": "npm install && cd frontend && npm install",
+    "postinstall": "cd frontend && npm install"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

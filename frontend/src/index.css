@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  body {
+    background: #030712;
+    color: #f1f5f9;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+  button, a, select, input {
+    touch-action: manipulation;
+  }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-gray-900/60 border border-white/[0.06] rounded-2xl;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.02) inset, 0 4px 24px rgba(0,0,0,0.3);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .glass-card:hover {
+    border-color: rgba(0,212,255,0.08);
+    box-shadow: 0 0 0 1px rgba(0,212,255,0.03) inset, 0 8px 32px rgba(0,0,0,0.4), 0 0 24px rgba(0,212,255,0.02);
+  }
+}
+
+@layer utilities {
+  .border-white\/8 { border-color: rgba(255,255,255,0.08); }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  .animate-shimmer { animation: shimmer 1.5s infinite; }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: scale(0.97) translateY(-4px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .animate-fade-in { animation: fade-in 0.2s ease-out; }
+
+  @keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(0,212,255,0.15); }
+    50% { box-shadow: 0 0 16px rgba(0,212,255,0.3); }
+  }
+  .animate-glow { animation: glow-pulse 2s ease-in-out infinite; }
+
+  @keyframes price-flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  .animate-price-flash { animation: price-flash 0.6s ease-out; }
+
+  .scrollbar-thin::-webkit-scrollbar { width: 3px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.05); border-radius: 2px; }
+
+  /* Responsive canvas height for PriceChart */
+  .chart-canvas { height: 180px; }
+  @media (min-width: 640px)  { .chart-canvas { height: 210px; } }
+  @media (min-width: 1024px) { .chart-canvas { height: 240px; } }
+
+  .text-glow-cyan { text-shadow: 0 0 12px rgba(0,212,255,0.5), 0 0 4px rgba(0,212,255,0.2); }
+  .text-glow-green { text-shadow: 0 0 12px rgba(0,255,157,0.5), 0 0 4px rgba(0,255,157,0.2); }
+  .text-glow-red { text-shadow: 0 0 12px rgba(255,59,92,0.5), 0 0 4px rgba(255,59,92,0.2); }
+}

@@ -1,0 +1,121 @@
+import { TrendingUp, TrendingDown, Zap, Target, BarChart2 } from 'lucide-react';
+import { fmt } from '../utils/formatters';
+
+const directionColors = {
+  Bullish: 'border-neon-green/15 bg-neon-green/5',
+  Bearish: 'border-neon-red/15 bg-neon-red/5',
+  'Neutral (Both)': 'border-neon-cyan/15 bg-neon-cyan/5',
+};
+
+const tagColors = {
+  'Elliott Wave': 'bg-purple-900/40 text-purple-300',
+  'Low IV': 'bg-blue-900/40 text-blue-300',
+  'Volatility Expansion': 'bg-yellow-900/40 text-yellow-300',
+  Straddle: 'bg-gray-800/40 text-gray-300',
+  'Gamma Squeeze': 'bg-red-900/40 text-red-300',
+  'Dealer Hedging': 'bg-orange-900/40 text-orange-300',
+  'PCR Extreme': 'bg-pink-900/40 text-pink-300',
+  Contrarian: 'bg-teal-900/40 text-teal-300',
+  'Max Pain': 'bg-indigo-900/40 text-indigo-300',
+  'OI Analysis': 'bg-cyan-900/40 text-cyan-300',
+  Trend: 'bg-emerald-900/40 text-emerald-300',
+};
+
+export function TradeRadar({ setups }) {
+  if (!setups || setups.length === 0) {
+    return (
+      <div className="glass-card p-5">
+        <h2 className="text-xs font-semibold text-gray-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
+          <Target size={13} className="text-yellow-400" /> Trade Setups
+        </h2>
+        <p className="text-gray-600 text-xs text-center py-6">
+          Click <span className="text-cyan-400 font-medium">Refresh</span> to generate trade setups.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="glass-card p-5">
+      <h2 className="text-xs font-semibold text-gray-400 mb-4 flex items-center gap-2 uppercase tracking-wider">
+        <Target size={13} className="text-yellow-400" /> Trade Setups
+        <span className="ml-auto text-[10px] text-gray-600 normal-case tracking-normal">Hold 1–3 months · Exit early OK</span>
+      </h2>
+      <div className="space-y-3">
+        {setups.map((setup) => (
+          <div
+            key={setup.id}
+            className={`rounded-xl border p-4 transition-colors ${directionColors[setup.direction] || 'border-white/[0.06] bg-gray-900/30'}`}
+          >
+            {/* Header */}
+            <div className="flex items-start justify-between gap-2 mb-2">
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  {setup.direction?.includes('Bull') ? (
+                    <TrendingUp size={14} className="text-neon-green" />
+                  ) : setup.direction?.includes('Bear') ? (
+                    <TrendingDown size={14} className="text-neon-red" />
+                  ) : (
+                    <Zap size={14} className="text-blue-400" />
+                  )}
+                  <span className="text-sm font-bold text-white">{setup.type}</span>
+                  <span className="text-xs text-gray-400">Strike: <span className="text-gray-200 font-mono font-medium">₹{setup.strike}</span></span>
+                  <span className="text-xs text-gray-400">Expiry: <span className="text-gray-200 font-mono">{setup.expiry}</span></span>
+                </div>
+                <div className="text-[10px] text-gray-500 mt-1">Lot Size: {setup.lotSize} | Expected Move: {setup.expectedMove}</div>
+              </div>
+              {/* Probability badge */}
+              <div className="shrink-0 text-center">
+                <div className={`text-xl font-bold font-mono ${setup.probability >= 60 ? 'text-neon-green' : 'text-yellow-400'}`}>
+                  {setup.probability}%
+                </div>
+                <div className="text-[10px] text-gray-600">Prob.</div>
+              </div>
+            </div>
+
+            {/* Tags */}
+            {setup.tags && (
+              <div className="flex flex-wrap gap-1 mb-2">
+                {setup.tags.map((tag) => (
+                  <span key={tag} className={`text-[10px] rounded-md px-1.5 py-0.5 ${tagColors[tag] || 'bg-gray-800/40 text-gray-400'}`}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            {/* Reasoning */}
+            <p className="text-xs text-gray-400 mb-2">{setup.reasoning}</p>
+
+            {/* Greeks */}
+            {setup.greeks && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-black/25 rounded-xl p-2.5 text-center">
+                {[['Δ Delta', setup.greeks.delta, 'text-blue-300'],
+                  ['Γ Gamma', setup.greeks.gamma, 'text-purple-300'],
+                  ['Θ Theta/day', setup.greeks.theta, 'text-orange-300'],
+                  ['ν Vega', setup.greeks.vega, 'text-pink-300'],
+                ].map(([label, val, cls]) => (
+                  <div key={label}>
+                    <div className={`text-xs font-mono font-semibold ${cls}`}>{val}</div>
+                    <div className="text-[10px] text-gray-700">{label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Break-even for straddles */}
+            {setup.breakEven && (
+              <div className="mt-2 text-[10px] text-gray-500 flex gap-4">
+                <span>Breakeven UP: <span className="text-neon-green">₹{setup.breakEven.up}</span></span>
+                <span>Breakeven DN: <span className="text-neon-red">₹{setup.breakEven.down}</span></span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <p className="text-[10px] text-gray-700 mt-4">
+        Educational only. Not SEBI investment advice. Always manage risk with defined stop-losses.
+      </p>
+    </div>
+  );
+}
