@@ -47,7 +47,7 @@ export function TradeRadar({ setups }) {
         {setups.map((setup) => (
           <div
             key={setup.id}
-            className={`rounded-xl border p-4 transition-colors ${directionColors[setup.direction] || 'border-white/[0.06] bg-gray-50 dark:bg-wcag-surface1'}`}
+            className={`rounded-xl border p-4 transition-colors ${directionColors[setup.direction] || 'border-white/[0.06] bg-pink-50 dark:bg-wcag-surface1'}`}
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-2 mb-2">
@@ -95,10 +95,10 @@ export function TradeRadar({ setups }) {
             {/* Greeks */}
             {setup.greeks && (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-indigo-950/25 rounded-xl p-2.5 text-center">
-                {[['Δ Delta', setup.greeks.delta, 'text-blue-300'],
-                  ['Γ Gamma', setup.greeks.gamma, 'text-purple-300'],
-                  ['Θ Theta/day', setup.greeks.theta, 'text-orange-300'],
-                  ['ν Vega', setup.greeks.vega, 'text-pink-300'],
+                {[['Δ Delta', setup.greeks.delta, 'text-black-300'],
+                  ['Γ Gamma', setup.greeks.gamma, 'text-black-300'],
+                  ['Θ Theta/day', setup.greeks.theta, 'text-black-300'],
+                  ['ν Vega', setup.greeks.vega, 'text-black-300'],
                 ].map(([label, val, cls]) => (
                   <div key={label}>
                     <div className={`text-xs font-mono font-semibold ${cls}`}>{val}</div>
