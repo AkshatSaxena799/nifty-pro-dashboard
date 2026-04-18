@@ -94,7 +94,7 @@ export function TradeRadar({ setups }) {
 
             {/* Greeks */}
             {setup.greeks && (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-black/25 rounded-xl p-2.5 text-center">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-indigo-950/25 rounded-xl p-2.5 text-center">
                 {[['Δ Delta', setup.greeks.delta, 'text-blue-300'],
                   ['Γ Gamma', setup.greeks.gamma, 'text-purple-300'],
                   ['Θ Theta/day', setup.greeks.theta, 'text-orange-300'],
