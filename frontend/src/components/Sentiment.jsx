@@ -104,20 +104,21 @@ export function Sentiment({ data }) {
   return (
     <div className="space-y-4">
       {/* Overall Sentiment */}
-      <div className="glass-card p-5">
-        <h2 className="text-xs font-semibold text-gray-400 mb-4 flex items-center gap-2 uppercase tracking-wider">
-          <Activity size={13} className="text-neon-cyan" /> Market Sentiment
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <Activity size={14} className="text-sky-500 dark:text-neon-cyan shrink-0" />
+          <h2 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-[0.1em]">Market Sentiment</h2>
           <InfoTooltip metric="Market Sentiment" />
-        </h2>
+        </div>
         <div className="flex items-center justify-between mb-4">
           <div>
             <div className={`text-2xl font-bold ${biasColor(sentLabel)}`}>{sentLabel}</div>
-            <div className="text-[10px] text-gray-600 font-mono mt-0.5">Score: {stableScore > 0 ? '+' : ''}{stableScore}</div>
+            <div className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted font-mono mt-0.5">Score: {stableScore > 0 ? '+' : ''}{stableScore}</div>
           </div>
           <div className="text-right space-y-0.5">
-            <div className={`text-sm font-bold flex items-center gap-1 justify-end font-mono ${colorClass(todayPct)}`}>
-              {todayPct >= 0 ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
-              {fmt.pct(todayPct)}
+            <div className="text-sm font-bold flex items-center gap-1 justify-end font-mono text-gray-900 dark:text-wcag-text">
+              <span className={colorClass(todayPct)}>{todayPct >= 0 ? '▲' : '▼'}</span>
+              {fmt.pct(Math.abs(todayPct))}
             </div>
             <div className={`text-xs font-mono ${colorClass(weekPct)}`}>
               Week: {fmt.pct(weekPct)}
@@ -125,14 +126,14 @@ export function Sentiment({ data }) {
           </div>
         </div>
         <SentimentGauge score={stableScore} />
-        <div className="flex justify-between text-[9px] text-gray-700 mt-1.5">
+        <div className="flex justify-between text-[9px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mt-1.5">
           <span>Bearish</span><span>Neutral</span><span>Bullish</span>
         </div>
 
         {/* FIX #3: Factor breakdown — shows what drives the sentiment score */}
         <button
           onClick={() => setShowBreakdown(v => !v)}
-          className="mt-3 flex items-center gap-1 text-[10px] text-gray-500 hover:text-gray-300 transition-colors"
+          className="mt-3 flex items-center gap-1 text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted hover:text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-text transition-colors"
         >
           {showBreakdown ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
           {showBreakdown ? 'Hide' : 'Show'} Score Breakdown
@@ -141,19 +142,21 @@ export function Sentiment({ data }) {
           <div className="mt-2 space-y-1.5 pt-2 border-t border-white/[0.04]">
             {breakdown.map(f => (
               <div key={f.name} className="flex items-center gap-1.5 sm:gap-2 text-[10px]">
-                <span className="w-10 sm:w-14 text-gray-500 shrink-0">{f.name}</span>
-                <span className="w-12 sm:w-14 text-gray-400 font-mono shrink-0">{f.raw}</span>
-                <span className={`w-8 font-bold font-mono text-right shrink-0 ${f.score > 0 ? 'text-neon-green' : f.score < 0 ? 'text-neon-red' : 'text-gray-600'}`}>
-                  {f.score > 0 ? '+' : ''}{f.score}
+                <span className="w-10 sm:w-14 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted shrink-0">{f.name}</span>
+                <span className="w-12 sm:w-14 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted font-mono shrink-0">{f.raw}</span>
+                <span className="w-8 font-bold font-mono text-right shrink-0 text-gray-900 dark:text-wcag-text flex items-center justify-end gap-0.5">
+                  <span className={f.score > 0 ? 'text-emerald-700 dark:text-neon-green' : f.score < 0 ? 'text-rose-600 dark:text-neon-red' : 'hidden'}>{f.score > 0 ? '▲' : f.score < 0 ? '▼' : ''}</span>
+                  {Math.abs(f.score)}
                 </span>
-                <span className="text-gray-600 truncate">{f.desc}</span>
+                <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted truncate">{f.desc}</span>
               </div>
             ))}
             <div className="flex items-center gap-1.5 sm:gap-2 text-[10px] pt-1.5 border-t border-white/[0.04]">
-              <span className="w-10 sm:w-14 text-gray-400 font-semibold shrink-0">Total</span>
+              <span className="w-10 sm:w-14 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted font-semibold shrink-0">Total</span>
               <span className="w-12 sm:w-14 shrink-0" />
-              <span className={`w-8 font-bold font-mono text-right shrink-0 ${stableScore > 0 ? 'text-neon-green' : stableScore < 0 ? 'text-neon-red' : 'text-gray-400'}`}>
-                {stableScore > 0 ? '+' : ''}{stableScore}
+              <span className="w-8 font-bold font-mono text-right shrink-0 text-gray-900 dark:text-wcag-text flex items-center justify-end gap-0.5">
+                <span className={stableScore > 0 ? 'text-emerald-700 dark:text-neon-green' : stableScore < 0 ? 'text-rose-600 dark:text-neon-red' : 'hidden'}>{stableScore > 0 ? '▲' : stableScore < 0 ? '▼' : ''}</span>
+                {Math.abs(stableScore)}
               </span>
               <span className={`font-semibold ${biasColor(stableScore > 25 ? 'Bullish' : stableScore < -25 ? 'Bearish' : 'Neutral')}`}>
                 {stableScore > 25 ? 'Bullish' : stableScore < -25 ? 'Bearish' : 'Neutral'}
@@ -164,41 +167,42 @@ export function Sentiment({ data }) {
       </div>
 
       {/* FII / DII */}
-      <div className="glass-card p-5">
-        <h2 className="text-xs font-semibold text-gray-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
-          FII vs DII <InfoTooltip metric="FII vs DII Flows" />
-        </h2>
+      <div className="pt-4 border-t border-black/[0.06] dark:border-white/[0.06]">
+        <div className="flex items-center gap-2 mb-3">
+          <h3 className="text-[10px] font-bold text-gray-900 dark:text-white uppercase tracking-[0.1em]">FII vs DII Flows</h3>
+          <InfoTooltip metric="FII vs DII Flows" />
+        </div>
         {data.fiiDate && (
-          <div className="text-[10px] text-gray-600 mb-3 font-mono">
+          <div className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-3 font-mono">
             {data.fiiDate}
           </div>
         )}
         <div className="grid grid-cols-2 gap-3 text-xs mb-2">
           <div className="bg-neon-green/5 border border-neon-green/10 rounded-xl p-3">
-            <div className="text-gray-500 text-[10px] mb-1.5 font-semibold uppercase tracking-wider">FII</div>
-            <div className="flex justify-between mb-0.5"><span className="text-gray-500">Buy</span><span className="text-neon-green font-semibold font-mono">{fmt.inCr(fii?.buy)}</span></div>
-            <div className="flex justify-between"><span className="text-gray-500">Sell</span><span className="text-neon-red font-semibold font-mono">{fmt.inCr(fii?.sell)}</span></div>
-            <div className={`flex justify-between border-t border-white/[0.04] pt-1.5 mt-1.5 font-bold font-mono ${colorClass(fii?.net)}`}>
-              <span className="text-gray-400">Net</span><span>{fmt.inCr(fii?.net)}</span>
+            <div className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted text-[10px] mb-1.5 font-semibold uppercase tracking-wider">FII</div>
+            <div className="flex justify-between mb-0.5"><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Buy</span><span className="text-gray-900 dark:text-wcag-text font-semibold font-mono"><span className="text-emerald-700 dark:text-neon-green mr-1">▲</span>{fmt.inCr(fii?.buy)}</span></div>
+            <div className="flex justify-between"><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Sell</span><span className="text-gray-900 dark:text-wcag-text font-semibold font-mono"><span className="text-rose-600 dark:text-neon-red mr-1">▼</span>{fmt.inCr(fii?.sell)}</span></div>
+            <div className="flex justify-between border-t border-white/[0.04] pt-1.5 mt-1.5 font-bold font-mono text-gray-900 dark:text-wcag-text">
+              <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Net</span><span className="flex items-center gap-1"><span className={colorClass(fii?.net)}>{fii?.net >= 0 ? '▲' : '▼'}</span>{fmt.inCr(Math.abs(fii?.net || 0))}</span>
             </div>
           </div>
           <div className="bg-neon-cyan/5 border border-neon-cyan/10 rounded-xl p-3">
-            <div className="text-gray-500 text-[10px] mb-1.5 font-semibold uppercase tracking-wider">DII</div>
-            <div className="flex justify-between mb-0.5"><span className="text-gray-500">Buy</span><span className="text-neon-green font-semibold font-mono">{fmt.inCr(dii?.buy)}</span></div>
-            <div className="flex justify-between"><span className="text-gray-500">Sell</span><span className="text-neon-red font-semibold font-mono">{fmt.inCr(dii?.sell)}</span></div>
-            <div className={`flex justify-between border-t border-white/[0.04] pt-1.5 mt-1.5 font-bold font-mono ${colorClass(dii?.net)}`}>
-              <span className="text-gray-400">Net</span><span>{fmt.inCr(dii?.net)}</span>
+            <div className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted text-[10px] mb-1.5 font-semibold uppercase tracking-wider">DII</div>
+            <div className="flex justify-between mb-0.5"><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Buy</span><span className="text-gray-900 dark:text-wcag-text font-semibold font-mono"><span className="text-emerald-700 dark:text-neon-green mr-1">▲</span>{fmt.inCr(dii?.buy)}</span></div>
+            <div className="flex justify-between"><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Sell</span><span className="text-gray-900 dark:text-wcag-text font-semibold font-mono"><span className="text-rose-600 dark:text-neon-red mr-1">▼</span>{fmt.inCr(dii?.sell)}</span></div>
+            <div className="flex justify-between border-t border-white/[0.04] pt-1.5 mt-1.5 font-bold font-mono text-gray-900 dark:text-wcag-text">
+              <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Net</span><span className="flex items-center gap-1"><span className={colorClass(dii?.net)}>{dii?.net >= 0 ? '▲' : '▼'}</span>{fmt.inCr(Math.abs(dii?.net || 0))}</span>
             </div>
           </div>
         </div>
         {(!fii?.buy && !fii?.sell && !dii?.buy) && (
-          <p className="text-[10px] text-amber-600 mt-1">⚠️ FII/DII unavailable — retry after market hours.</p>
+          <p className="text-[10px] text-sky-700 dark:text-amber-600 mt-1">⚠️ FII/DII unavailable — retry after market hours.</p>
         )}
       </div>
 
       {/* OI Snapshot */}
       <div className="glass-card p-5">
-        <h2 className="text-xs font-semibold text-gray-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
+        <h2 className="text-xs font-semibold text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-3 flex items-center gap-2 uppercase tracking-wider">
           OI Snapshot <InfoTooltip metric="Open Interest Snapshot" />
         </h2>
         <div className="space-y-2 text-xs">
@@ -211,8 +215,11 @@ export function Sentiment({ data }) {
             { label: 'Max Pain', val: fmt.inr(maxPain) },
           ].map(({ label, val, cls }) => (
             <div key={label} className="flex justify-between border-b border-white/[0.04] pb-1.5 last:border-0">
-              <span className="text-gray-500">{label}</span>
-              <span className={`font-semibold font-mono ${cls || 'text-gray-200'}`}>{val}</span>
+              <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">{label}</span>
+              <span className="font-semibold font-mono text-gray-900 dark:text-wcag-text flex items-center gap-1">
+                {cls && <span className={cls}>{val && val.includes('-') ? '▼' : '▲'}</span>}
+                {val ? val.replace('-', '') : ''}
+              </span>
             </div>
           ))}
         </div>

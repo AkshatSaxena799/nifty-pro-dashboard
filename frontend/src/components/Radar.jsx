@@ -10,8 +10,8 @@ const directionColors = {
 const tagColors = {
   'Elliott Wave': 'bg-purple-900/40 text-purple-300',
   'Low IV': 'bg-blue-900/40 text-blue-300',
-  'Volatility Expansion': 'bg-yellow-900/40 text-yellow-300',
-  Straddle: 'bg-gray-800/40 text-gray-300',
+  'Volatility Expansion': 'bg-yellow-900/40 text-sky-700 dark:text-amber-300',
+  Straddle: 'bg-gray-100 dark:bg-wcag-surface2 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-text',
   'Gamma Squeeze': 'bg-red-900/40 text-red-300',
   'Dealer Hedging': 'bg-orange-900/40 text-orange-300',
   'PCR Extreme': 'bg-pink-900/40 text-pink-300',
@@ -24,52 +24,57 @@ const tagColors = {
 export function TradeRadar({ setups }) {
   if (!setups || setups.length === 0) {
     return (
-      <div className="glass-card p-5">
-        <h2 className="text-xs font-semibold text-gray-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
-          <Target size={13} className="text-yellow-400" /> Trade Setups
-        </h2>
-        <p className="text-gray-600 text-xs text-center py-6">
-          Click <span className="text-cyan-400 font-medium">Refresh</span> to generate trade setups.
+      <div className="glass-card card-accent-amber p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Target size={14} className="text-amber-500 shrink-0" />
+          <h2 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-[0.1em]">Trade Setups</h2>
+        </div>
+        <p className="text-gray-500 dark:text-wcag-muted text-xs text-center py-6">
+          Click <span className="text-sky-600 dark:text-neon-cyan font-medium">Refresh</span> to generate trade setups.
         </p>
       </div>
     );
   }
 
   return (
-    <div className="glass-card p-5">
-      <h2 className="text-xs font-semibold text-gray-400 mb-4 flex items-center gap-2 uppercase tracking-wider">
-        <Target size={13} className="text-yellow-400" /> Trade Setups
-        <span className="ml-auto text-[10px] text-gray-600 normal-case tracking-normal">Hold 1–3 months · Exit early OK</span>
-      </h2>
+    <div className="glass-card card-accent-amber p-5 h-[500px] flex flex-col">
+      <div className="flex items-center gap-2 mb-4">
+        <Target size={14} className="text-amber-500 shrink-0" />
+        <h2 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-[0.1em]">Trade Setups</h2>
+        <span className="ml-auto text-[10px] text-gray-400 dark:text-wcag-muted">Hold 1–3 months · Exit early OK</span>
+      </div>
       <div className="space-y-3">
         {setups.map((setup) => (
           <div
             key={setup.id}
-            className={`rounded-xl border p-4 transition-colors ${directionColors[setup.direction] || 'border-white/[0.06] bg-gray-900/30'}`}
+            className={`rounded-xl border p-4 transition-colors ${directionColors[setup.direction] || 'border-white/[0.06] bg-gray-50 dark:bg-wcag-surface1'}`}
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-2 mb-2">
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  {setup.direction?.includes('Bull') ? (
-                    <TrendingUp size={14} className="text-neon-green" />
-                  ) : setup.direction?.includes('Bear') ? (
-                    <TrendingDown size={14} className="text-neon-red" />
-                  ) : (
-                    <Zap size={14} className="text-blue-400" />
-                  )}
-                  <span className="text-sm font-bold text-white">{setup.type}</span>
-                  <span className="text-xs text-gray-400">Strike: <span className="text-gray-200 font-mono font-medium">₹{setup.strike}</span></span>
-                  <span className="text-xs text-gray-400">Expiry: <span className="text-gray-200 font-mono">{setup.expiry}</span></span>
+                  <span className="text-sm font-bold flex items-center gap-1.5 text-gray-900 dark:text-wcag-text">
+                    {setup.direction?.includes('Bull') ? (
+                      <span className="text-emerald-700 dark:text-neon-green text-xs">▲</span>
+                    ) : setup.direction?.includes('Bear') ? (
+                      <span className="text-rose-600 dark:text-neon-red text-xs">▼</span>
+                    ) : (
+                      <span className="text-blue-400 text-xs">●</span>
+                    )}
+                    {setup.type}
+                  </span>
+                  <span className="text-xs text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Strike: <span className="text-gray-800 dark:text-wcag-text font-mono font-medium">₹{setup.strike}</span></span>
+                  <span className="text-xs text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Expiry: <span className="text-gray-800 dark:text-wcag-text font-mono">{setup.expiry}</span></span>
                 </div>
-                <div className="text-[10px] text-gray-500 mt-1">Lot Size: {setup.lotSize} | Expected Move: {setup.expectedMove}</div>
+                <div className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mt-1">Lot Size: {setup.lotSize} | Expected Move: {setup.expectedMove}</div>
               </div>
               {/* Probability badge */}
               <div className="shrink-0 text-center">
-                <div className={`text-xl font-bold font-mono ${setup.probability >= 60 ? 'text-neon-green' : 'text-yellow-400'}`}>
+                <div className="text-xl font-bold font-mono text-gray-900 dark:text-wcag-text flex items-center justify-center gap-1">
+                  <span className={setup.probability >= 60 ? 'text-emerald-700 dark:text-neon-green' : 'text-sky-700 dark:text-amber-400'}>{setup.probability >= 60 ? '▲' : '●'}</span>
                   {setup.probability}%
                 </div>
-                <div className="text-[10px] text-gray-600">Prob.</div>
+                <div className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Prob.</div>
               </div>
             </div>
 
@@ -77,7 +82,7 @@ export function TradeRadar({ setups }) {
             {setup.tags && (
               <div className="flex flex-wrap gap-1 mb-2">
                 {setup.tags.map((tag) => (
-                  <span key={tag} className={`text-[10px] rounded-md px-1.5 py-0.5 ${tagColors[tag] || 'bg-gray-800/40 text-gray-400'}`}>
+                  <span key={tag} className={`text-[10px] rounded-md px-1.5 py-0.5 ${tagColors[tag] || 'bg-gray-100 dark:bg-wcag-surface2 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted'}`}>
                     {tag}
                   </span>
                 ))}
@@ -85,7 +90,7 @@ export function TradeRadar({ setups }) {
             )}
 
             {/* Reasoning */}
-            <p className="text-xs text-gray-400 mb-2">{setup.reasoning}</p>
+            <p className="text-xs text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-2">{setup.reasoning}</p>
 
             {/* Greeks */}
             {setup.greeks && (
@@ -97,7 +102,7 @@ export function TradeRadar({ setups }) {
                 ].map(([label, val, cls]) => (
                   <div key={label}>
                     <div className={`text-xs font-mono font-semibold ${cls}`}>{val}</div>
-                    <div className="text-[10px] text-gray-700">{label}</div>
+                    <div className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">{label}</div>
                   </div>
                 ))}
               </div>
@@ -105,15 +110,15 @@ export function TradeRadar({ setups }) {
 
             {/* Break-even for straddles */}
             {setup.breakEven && (
-              <div className="mt-2 text-[10px] text-gray-500 flex gap-4">
-                <span>Breakeven UP: <span className="text-neon-green">₹{setup.breakEven.up}</span></span>
-                <span>Breakeven DN: <span className="text-neon-red">₹{setup.breakEven.down}</span></span>
+              <div className="mt-2 text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted flex gap-4">
+                <span>Breakeven UP: <span className="text-gray-900 dark:text-wcag-text font-medium"><span className="text-emerald-700 dark:text-neon-green mr-1">▲</span>₹{setup.breakEven.up}</span></span>
+                <span>Breakeven DN: <span className="text-gray-900 dark:text-wcag-text font-medium"><span className="text-rose-600 dark:text-neon-red mr-1">▼</span>₹{setup.breakEven.down}</span></span>
               </div>
             )}
           </div>
         ))}
       </div>
-      <p className="text-[10px] text-gray-700 mt-4">
+      <p className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mt-4">
         Educational only. Not SEBI investment advice. Always manage risk with defined stop-losses.
       </p>
     </div>

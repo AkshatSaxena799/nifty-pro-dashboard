@@ -4,16 +4,16 @@ import { ExternalLink, TrendingUp, TrendingDown, Minus, Calendar, Newspaper } fr
 import { InfoTooltip } from '../utils/tooltips.jsx';
 
 const sentimentIcon = (s) => {
-  if (!s) return <Minus size={12} className="text-gray-400" />;
-  if (s === 'Bullish') return <TrendingUp size={12} className="text-neon-green" />;
-  if (s === 'Bearish') return <TrendingDown size={12} className="text-neon-red" />;
-  return <Minus size={12} className="text-yellow-400" />;
+  if (!s) return <span className="text-gray-500 font-bold text-[10px]">●</span>;
+  if (s === 'Bullish') return <span className="text-emerald-700 dark:text-neon-green font-bold text-xs mt-[1px]">▲</span>;
+  if (s === 'Bearish') return <span className="text-rose-600 dark:text-neon-red font-bold text-xs mt-[1px]">▼</span>;
+  return <span className="text-sky-700 dark:text-amber-400 font-bold text-[10px]">●</span>;
 };
 
 const sentimentCls = {
-  Bullish: 'bg-neon-green/5 text-neon-green/80 border-neon-green/15',
-  Bearish: 'bg-neon-red/5 text-neon-red/80 border-neon-red/15',
-  Neutral: 'bg-gray-800/25 text-gray-300 border-white/[0.06]',
+  Bullish: 'bg-neon-green/5 text-emerald-700 dark:text-neon-green/80 border-neon-green/15',
+  Bearish: 'bg-neon-red/5 text-rose-600 dark:text-neon-red/80 border-neon-red/15',
+  Neutral: 'bg-gray-100 dark:bg-wcag-surface2/25 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-text border-white/[0.06]',
 };
 
 const TABS = [
@@ -47,12 +47,12 @@ function NewsCard({ item }) {
             <ExternalLink size={10} className="shrink-0 mt-0.5 opacity-40 group-hover:opacity-100" />
           </a>
           {summary && (
-            <p className="text-[11px] text-gray-500 mt-1 line-clamp-2">{summary}</p>
+            <p className="text-[11px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mt-1 line-clamp-2">{summary}</p>
           )}
           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
             {sources.map((s, i) => (
               <a key={i} href={s.link} target="_blank" rel="noopener noreferrer"
-                className="text-[10px] font-medium text-gray-500 hover:text-blue-400 transition-colors">
+                className="text-[10px] font-medium text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted hover:text-blue-400 transition-colors">
                 {s.name}
               </a>
             ))}
@@ -63,9 +63,9 @@ function NewsCard({ item }) {
             )}
             {item.sentiment && (
               <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${
-                item.sentiment === 'Bullish' ? 'bg-neon-green/15 text-neon-green' :
-                item.sentiment === 'Bearish' ? 'bg-neon-red/15 text-neon-red' :
-                'bg-yellow-900/30 text-yellow-500'}`}>
+                item.sentiment === 'Bullish' ? 'bg-neon-green/15 text-emerald-700 dark:text-neon-green' :
+                item.sentiment === 'Bearish' ? 'bg-neon-red/15 text-rose-600 dark:text-neon-red' :
+                'bg-yellow-900/30 text-sky-700'}`}>
                 {item.sentiment}
               </span>
             )}
@@ -75,7 +75,7 @@ function NewsCard({ item }) {
               </span>
             )}
             {dateStr && (
-              <span className="text-[10px] text-gray-600 flex items-center gap-0.5">
+              <span className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted flex items-center gap-0.5">
                 <Calendar size={9} />{dateStr}
               </span>
             )}
@@ -91,11 +91,12 @@ export function NewsSection({ news }) {
 
   if (!news || news.length === 0) {
     return (
-      <div className="glass-card p-5">
-        <h2 className="text-xs font-semibold text-gray-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
-          <Newspaper size={13} className="text-neon-cyan" /> Market News <InfoTooltip metric="News Sentiment" />
-        </h2>
-        <p className="text-gray-600 text-xs text-center py-6">Click Refresh to load latest headlines.</p>
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <Newspaper size={14} className="text-sky-500 dark:text-neon-cyan shrink-0" />
+          <h2 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-[0.1em]">Market News <InfoTooltip metric="News Sentiment" /></h2>
+        </div>
+        <p className="text-gray-500 dark:text-wcag-muted text-xs text-center py-6">Click Refresh to load latest headlines.</p>
       </div>
     );
   }
@@ -146,45 +147,44 @@ export function NewsSection({ news }) {
   const bearCount = tabItems.filter((n) => n.sentiment === 'Bearish').length;
 
   return (
-    <div className="glass-card p-5">
+    <div>
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xs font-semibold text-gray-400 flex items-center gap-2 uppercase tracking-wider">
-          <Newspaper size={13} className="text-neon-cyan" /> Market News
-          <InfoTooltip metric="News Sentiment" />
-        </h2>
-        <span className="flex gap-2 text-[10px] font-mono">
-          <span className="text-neon-green">{bullCount} bull</span>
-          <span className="text-neon-red">{bearCount} bear</span>
+        <div className="flex items-center gap-2">
+          <Newspaper size={14} className="text-sky-500 dark:text-neon-cyan shrink-0" />
+          <h2 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-[0.1em]">Market News <InfoTooltip metric="News Sentiment" /></h2>
+        </div>
+        <span className="flex gap-2 text-[10px] font-data">
+          <span className="flex items-center gap-0.5 text-emerald-700 dark:text-neon-green font-bold">▲ {bullCount}</span>
+          <span className="flex items-center gap-0.5 text-rose-600 dark:text-neon-red font-bold">▼ {bearCount}</span>
         </span>
       </div>
 
-      {/* Tab bar */}
-      <div className="flex gap-1 mb-3 overflow-x-auto">
+      <div className="flex gap-1.5 mb-3 overflow-x-auto">
         {TABS.map((t) => {
           const cnt = getTabCount(t.key);
           return (
             <button
               key={t.key}
               onClick={() => setActiveTab(t.key)}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[11px] font-semibold whitespace-nowrap transition-all ${
                 activeTab === t.key
-                  ? 'bg-neon-cyan/15 text-neon-cyan border border-neon-cyan/20'
-                  : 'bg-black/20 text-gray-500 hover:text-gray-300 hover:bg-white/[0.04] border border-transparent'
+                  ? 'bg-sky-100 text-sky-700 dark:bg-neon-cyan/10 dark:text-neon-cyan border border-sky-200 dark:border-neon-cyan/20 shadow-sm'
+                  : 'text-gray-500 dark:text-wcag-muted hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/[0.04] border border-transparent'
               }`}
             >
               <span>{t.label}</span>
-              <span className="text-[10px] font-mono opacity-60">({cnt})</span>
+              <span className="text-[10px] font-data opacity-50">({cnt})</span>
             </button>
           );
         })}
       </div>
 
-      <p className="text-gray-700 text-[10px] mb-3">
+      <p className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted text-[10px] mb-3">
         ET · MC · Reuters · Livemint · Business Line · Business Standard · CNBC TV18
       </p>
 
       {tabItems.length === 0 ? (
-        <p className="text-gray-600 text-xs text-center py-6">No {activeTab} news available. Try a different tab.</p>
+        <p className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted text-xs text-center py-6">No {activeTab} news available. Try a different tab.</p>
       ) : (
         <div className="space-y-2.5 max-h-[360px] sm:max-h-[440px] lg:max-h-[520px] overflow-y-auto pr-1 scrollbar-thin">
           {tabItems.map((item, i) => (

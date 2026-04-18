@@ -2,13 +2,13 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 
 function trendColor(signal) {
-  if (signal === 'Strong Uptrend') return 'text-neon-green';
-  if (signal === 'Uptrend') return 'text-neon-green/80';
-  if (signal === 'Pullback') return 'text-yellow-400';
-  if (signal === 'Bounce') return 'text-neon-cyan';
-  if (signal === 'Downtrend') return 'text-neon-red/80';
-  if (signal === 'Strong Downtrend') return 'text-neon-red';
-  return 'text-gray-400';
+  if (signal === 'Strong Uptrend') return 'text-emerald-700 dark:text-neon-green';
+  if (signal === 'Uptrend') return 'text-emerald-700 dark:text-neon-green/80';
+  if (signal === 'Pullback') return 'text-amber-700 dark:text-amber-400';
+  if (signal === 'Bounce') return 'text-sky-800 dark:text-neon-cyan';
+  if (signal === 'Downtrend') return 'text-rose-600 dark:text-neon-red/80';
+  if (signal === 'Strong Downtrend') return 'text-rose-600 dark:text-neon-red';
+  return 'text-gray-700 dark:text-wcag-muted';
 }
 
 export function PriceChart({ historyBars, spot, dailyChange, dailyChangePct }) {
@@ -68,8 +68,8 @@ export function PriceChart({ historyBars, spot, dailyChange, dailyChangePct }) {
     }
 
     const isUp = closes[closes.length - 1] >= closes[0];
-    const lineColor = isUp ? '#00ff9d' : '#ff3b5c';
-    const fillTop = isUp ? 'rgba(0,255,157,0.08)' : 'rgba(255,59,92,0.08)';
+    const lineColor = isUp ? '#5fd88f' : '#FF5A76';
+    const fillTop = isUp ? 'rgba(95,216,143,0.08)' : 'rgba(255,90,118,0.08)';
     const fillBot = 'rgba(0,0,0,0)';
 
     // Gradient fill
@@ -202,10 +202,10 @@ export function PriceChart({ historyBars, spot, dailyChange, dailyChangePct }) {
     return (
       <div className="glass-card p-5">
         <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">NIFTY 60-Day</h2>
+          <h2 className="text-xs font-semibold text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider">NIFTY 60-Day</h2>
         </div>
-        <div className="flex items-center justify-center py-6 text-gray-700 text-xs">
-          Click <span className="text-neon-cyan font-medium mx-1">Refresh</span> to load price history
+        <div className="flex items-center justify-center py-6 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted text-xs">
+          Click <span className="text-blue-950 dark:text-neon-cyan font-medium mx-1">Refresh</span> to load price history
         </div>
       </div>
     );
@@ -214,24 +214,25 @@ export function PriceChart({ historyBars, spot, dailyChange, dailyChangePct }) {
   return (
     <div className="glass-card p-5">
       <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
-        <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">NIFTY 60-Day</h2>
+        <h2 className="text-xs font-semibold text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider">NIFTY 60-Day</h2>
         <div className="flex items-center gap-3">
           {spot ? (
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold text-white font-mono text-glow-cyan">
+              <span className="text-lg font-bold text-gray-900 dark:text-wcag-text font-mono text-glow-cyan">
                 ₹{Math.round(spot).toLocaleString('en-IN')}
               </span>
-              <span className={`flex items-center gap-0.5 text-sm font-bold font-mono ${isUp ? 'text-neon-green' : 'text-neon-red'}`}>
-                {isUp ? '▲' : '▼'}{Math.abs(dailyChange ?? 0).toFixed(0)}
-                <span className="text-xs ml-0.5 opacity-70">({isUp ? '+' : ''}{dailyChangePct?.toFixed(2)}%)</span>
+              <span className="flex items-center gap-1 text-sm font-bold font-mono text-gray-900 dark:text-wcag-text">
+                <span className={isUp ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red'}>{isUp ? '▲' : '▼'}</span>
+                {Math.abs(dailyChange ?? 0).toFixed(0)}
+                <span className="text-xs ml-0.5 opacity-70">({Math.abs(dailyChangePct ?? 0).toFixed(2)}%)</span>
               </span>
             </div>
           ) : null}
           {periodPct != null && (
             <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono ${
               parseFloat(periodPct) >= 0
-                ? 'bg-neon-green/10 border border-neon-green/20 text-neon-green'
-                : 'bg-neon-red/10 border border-neon-red/20 text-neon-red'}`}>
+                ? 'bg-neon-green/10 border border-neon-green/20 text-emerald-700 dark:text-neon-green'
+                : 'bg-neon-red/10 border border-neon-red/20 text-rose-600 dark:text-neon-red'}`}>
               60d: {parseFloat(periodPct) >= 0 ? '+' : ''}{periodPct}%
             </span>
           )}
@@ -247,21 +248,23 @@ export function PriceChart({ historyBars, spot, dailyChange, dailyChangePct }) {
         />
         {tooltip && (
           <div
-            className="absolute z-10 pointer-events-none bg-gray-950/95 border border-cyan-500/15 rounded-xl px-3 py-2 text-xs shadow-2xl backdrop-blur-sm"
+            className="absolute z-10 pointer-events-none bg-white dark:bg-wcag-bg/95 border border-cyan-500/15 rounded-xl px-3 py-2 text-xs shadow-2xl backdrop-blur-sm"
             style={{
               left: Math.min(tooltip.x + 14, 260),
               top: Math.max(tooltip.y - 70, 0),
             }}
           >
-            <div className="text-gray-500 mb-1 font-mono">{tooltip.date}</div>
-            <div className="text-white font-bold text-sm font-mono">
+            <div className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-1 font-mono">{tooltip.date}</div>
+            <div className="text-gray-900 dark:text-wcag-text font-bold text-sm font-mono">
               ₹{Math.round(tooltip.price).toLocaleString('en-IN')}
             </div>
-            <div className={`font-mono font-semibold mt-0.5 ${parseFloat(tooltip.pctFromPrev) >= 0 ? 'text-neon-green' : 'text-neon-red'}`}>
-              Day: {parseFloat(tooltip.pctFromPrev) >= 0 ? '+' : ''}{tooltip.pctFromPrev}%
+            <div className="font-mono font-semibold mt-0.5 text-gray-900 dark:text-wcag-text flex items-center gap-1">
+              <span className={parseFloat(tooltip.pctFromPrev) >= 0 ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red'}>{parseFloat(tooltip.pctFromPrev) >= 0 ? '▲' : '▼'}</span>
+              Day: {Math.abs(parseFloat(tooltip.pctFromPrev))}%
             </div>
-            <div className={`text-[10px] mt-0.5 font-mono ${parseFloat(tooltip.pctFromStart) >= 0 ? 'text-neon-green/70' : 'text-neon-red/70'}`}>
-              60d: {parseFloat(tooltip.pctFromStart) >= 0 ? '+' : ''}{tooltip.pctFromStart}%
+            <div className="text-xs mt-0.5 font-mono text-gray-700 dark:text-wcag-muted flex items-center gap-1">
+              <span className={parseFloat(tooltip.pctFromStart) >= 0 ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red'}>{parseFloat(tooltip.pctFromStart) >= 0 ? '▲' : '▼'}</span>
+              60d: {Math.abs(parseFloat(tooltip.pctFromStart))}%
             </div>
           </div>
         )}
@@ -270,45 +273,48 @@ export function PriceChart({ historyBars, spot, dailyChange, dailyChangePct }) {
       {/* Chart Insights — fills space and tells what the chart is saying */}
       {chartInsights && (
         <div className="mt-3 pt-3 border-t border-white/[0.04] grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2">
-          <div className="bg-gray-900/40 border border-white/[0.04] rounded-xl p-2.5 text-center">
-            <div className="text-[9px] text-gray-600 uppercase tracking-wider mb-1">60D High</div>
-            <div className="text-neon-red/90 text-[11px] font-bold font-mono">₹{Math.round(chartInsights.high60).toLocaleString('en-IN')}</div>
-            <div className="text-[9px] font-mono text-gray-600">{chartInsights.fromHighPct.toFixed(1)}%</div>
+          <div className="bg-gray-50 dark:bg-wcag-surface1 border border-white/[0.04] rounded-xl p-2.5 text-center">
+            <div className="text-[9px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider mb-1">60D High</div>
+            <div className="text-gray-900 dark:text-wcag-text text-[11px] font-bold font-mono">₹{Math.round(chartInsights.high60).toLocaleString('en-IN')}</div>
+            <div className="text-[9px] font-mono text-gray-900 dark:text-wcag-text">{chartInsights.fromHighPct.toFixed(1)}%</div>
           </div>
-          <div className="bg-gray-900/40 border border-white/[0.04] rounded-xl p-2.5 text-center">
-            <div className="text-[9px] text-gray-600 uppercase tracking-wider mb-1">60D Low</div>
-            <div className="text-neon-green/90 text-[11px] font-bold font-mono">₹{Math.round(chartInsights.low60).toLocaleString('en-IN')}</div>
-            <div className="text-[9px] font-mono text-gray-600">+{chartInsights.fromLowPct.toFixed(1)}%</div>
+          <div className="bg-gray-50 dark:bg-wcag-surface1 border border-white/[0.04] rounded-xl p-2.5 text-center">
+            <div className="text-[9px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider mb-1">60D Low</div>
+            <div className="text-gray-900 dark:text-wcag-text text-[11px] font-bold font-mono">₹{Math.round(chartInsights.low60).toLocaleString('en-IN')}</div>
+            <div className="text-[9px] font-mono text-gray-900 dark:text-wcag-text">+{chartInsights.fromLowPct.toFixed(1)}%</div>
           </div>
-          <div className="bg-gray-900/40 border border-white/[0.04] rounded-xl p-2.5 text-center">
-            <div className="text-[9px] text-gray-600 uppercase tracking-wider mb-1">SMA 20</div>
-            <div className="text-yellow-400/90 text-[11px] font-bold font-mono">₹{Math.round(chartInsights.sma20).toLocaleString('en-IN')}</div>
-            <div className={`text-[9px] font-mono ${chartInsights.aboveSMA ? 'text-neon-green/70' : 'text-neon-red/70'}`}>
-              {chartInsights.aboveSMA ? '▲ Above' : '▼ Below'}
+          <div className="bg-gray-50 dark:bg-wcag-surface1 border border-white/[0.04] rounded-xl p-2.5 text-center">
+            <div className="text-[9px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider mb-1">SMA 20</div>
+            <div className="text-gray-900 dark:text-wcag-text text-[11px] font-bold font-mono">₹{Math.round(chartInsights.sma20).toLocaleString('en-IN')}</div>
+            <div className="text-[9px] font-mono text-gray-900 dark:text-wcag-text flex items-center justify-center gap-1">
+              <span className={chartInsights.aboveSMA ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red'}>{chartInsights.aboveSMA ? '▲' : '▼'}</span>
+              {chartInsights.aboveSMA ? 'Above' : 'Below'}
             </div>
           </div>
-          <div className="bg-gray-900/40 border border-white/[0.04] rounded-xl p-2.5 text-center">
-            <div className="text-[9px] text-gray-600 uppercase tracking-wider mb-1">5D Momt.</div>
-            <div className={`text-[11px] font-bold font-mono ${chartInsights.momentum5 >= 0 ? 'text-neon-green' : 'text-neon-red'}`}>
-              {chartInsights.momentum5 >= 0 ? '+' : ''}{chartInsights.momentum5.toFixed(2)}%
+          <div className="bg-gray-50 dark:bg-wcag-surface1 border border-white/[0.04] rounded-xl p-2.5 text-center">
+            <div className="text-[9px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider mb-1">5D Momt.</div>
+            <div className="text-[11px] font-bold font-mono text-gray-900 dark:text-wcag-text flex items-center justify-center gap-1">
+              <span className={chartInsights.momentum5 >= 0 ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red'}>{chartInsights.momentum5 >= 0 ? '▲' : '▼'}</span>
+              {Math.abs(chartInsights.momentum5).toFixed(2)}%
             </div>
-            <div className="text-[9px] font-mono text-gray-600">
+            <div className="text-[9px] font-mono text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">
               {Math.abs(chartInsights.momentum5) > 2 ? 'Strong' : Math.abs(chartInsights.momentum5) > 0.5 ? 'Moderate' : 'Weak'}
             </div>
           </div>
-          <div className="bg-gray-900/40 border border-white/[0.04] rounded-xl p-2.5 text-center">
-            <div className="text-[9px] text-gray-600 uppercase tracking-wider mb-1">60D Range</div>
-            <div className="text-neon-cyan/90 text-[11px] font-bold font-mono">{chartInsights.range60pct.toFixed(1)}%</div>
-            <div className="text-[9px] font-mono text-gray-600">
+          <div className="bg-gray-50 dark:bg-wcag-surface1 border border-white/[0.04] rounded-xl p-2.5 text-center">
+            <div className="text-[9px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider mb-1">60D Range</div>
+            <div className="text-blue-950 dark:text-neon-cyan/90 text-[11px] font-bold font-mono">{chartInsights.range60pct.toFixed(1)}%</div>
+            <div className="text-[9px] font-mono text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">
               {chartInsights.range60pct > 20 ? 'High Vol' : chartInsights.range60pct > 10 ? 'Normal' : 'Low Vol'}
             </div>
           </div>
-          <div className="bg-gray-900/40 border border-white/[0.04] rounded-xl p-2.5 text-center">
-            <div className="text-[9px] text-gray-600 uppercase tracking-wider mb-1">Signal</div>
-            <div className={`text-[10px] font-bold leading-tight ${trendColor(chartInsights.trendSignal)}`}>
+          <div className="bg-gray-50 dark:bg-wcag-surface1 border border-white/[0.04] rounded-xl p-2.5 text-center">
+            <div className="text-[9px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted uppercase tracking-wider mb-1">Signal</div>
+            <div className="text-[10px] font-bold leading-tight text-gray-900 dark:text-wcag-text">
+              <span className={trendColor(chartInsights.trendSignal).split(' ')[0] + ' mr-1'}>{['Strong Uptrend', 'Uptrend', 'Bounce'].includes(chartInsights.trendSignal) ? '▲' : ['Strong Downtrend', 'Downtrend', 'Pullback'].includes(chartInsights.trendSignal) ? '▼' : '●'}</span>
               {chartInsights.trendSignal}
             </div>
-            <div className="text-[9px] font-mono text-gray-600">{Math.round(chartInsights.recoveryPct)}% recovery</div>
+            <div className="text-[9px] font-mono text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">{Math.round(chartInsights.recoveryPct)}% recovery</div>
           </div>
         </div>
       )}

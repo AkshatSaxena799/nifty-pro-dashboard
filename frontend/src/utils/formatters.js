@@ -20,17 +20,16 @@ export const fmt = {
 
 export function colorClass(v) {
   if (v == null) return 'text-gray-400';
-  return Number(v) >= 0 ? 'text-neon-green' : 'text-neon-red';
+  return Number(v) >= 0 ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red';
 }
 
 export function biasColor(bias) {
   if (!bias) return 'text-gray-400';
   const b = bias.toLowerCase();
-  if (b.includes('bull')) return 'text-neon-green';
-  if (b.includes('bear')) return 'text-neon-red';
-  if (b.includes('caution') || b.includes('mixed')) return 'text-amber-400';
+  if (b.includes('bull')) return 'text-emerald-700 dark:text-neon-green';
+  if (b.includes('bear')) return 'text-rose-600 dark:text-neon-red';
+  if (b.includes('caution') || b.includes('mixed')) return 'text-amber-700 dark:text-amber-400';
   return 'text-gray-400';
-  return 'text-yellow-400';
 }
 
 export function sentimentBg(label) {

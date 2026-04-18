@@ -73,10 +73,10 @@ function Toggle({ options, value, onChange, colorA = 'blue', colorB = 'red' }) {
             onClick={() => onChange(key)}
             className={`flex-1 px-3 py-1.5 font-semibold transition-colors ${
               active
-                ? color === 'blue' ? 'bg-neon-cyan/20 text-neon-cyan border border-neon-cyan/30'
-                : color === 'red' ? 'bg-neon-red/20 text-neon-red border border-neon-red/30'
-                : 'bg-neon-green/20 text-neon-green border border-neon-green/30'
-                : 'bg-gray-900/60 text-gray-400 hover:text-gray-200'
+                ? color === 'blue' ? 'bg-neon-cyan/20 text-sky-800 dark:text-neon-cyan border border-neon-cyan/30'
+                : color === 'red' ? 'bg-neon-red/20 text-rose-600 dark:text-neon-red border border-neon-red/30'
+                : 'bg-neon-green/20 text-emerald-700 dark:text-neon-green border border-neon-green/30'
+                : 'bg-gray-50 dark:bg-wcag-surface1 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted hover:text-gray-800 dark:text-wcag-text'
             }`}
           >
             {label}
@@ -117,7 +117,7 @@ function AddPositionForm({ onAdded }) {
     setLoading(false);
   };
 
-  const inp = 'bg-gray-900/80 border border-white/[0.08] rounded-lg px-2.5 py-1.5 text-xs text-gray-200 font-mono focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 w-full transition-colors';
+  const inp = 'bg-gray-50 dark:bg-wcag-surface1 border border-white/[0.08] rounded-lg px-2.5 py-1.5 text-xs text-gray-800 dark:text-wcag-text font-mono focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 w-full transition-colors';
   const isBuy = form.side === 'long';
   const isCE = form.type === 'CE';
 
@@ -126,7 +126,7 @@ function AddPositionForm({ onAdded }) {
       <div className="grid grid-cols-2 gap-3">
         {/* Buy / Sell toggle */}
         <div>
-          <label className="text-[10px] text-gray-500 mb-1 block">Direction</label>
+          <label className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-1 block">Direction</label>
           <Toggle
             options={[{ key: 'long', label: '▲ Buy' }, { key: 'short', label: '▼ Sell' }]}
             value={form.side}
@@ -137,7 +137,7 @@ function AddPositionForm({ onAdded }) {
         </div>
         {/* CE / PE toggle */}
         <div>
-          <label className="text-[10px] text-gray-500 mb-1 block">Option Type</label>
+          <label className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-1 block">Option Type</label>
           <Toggle
             options={[{ key: 'CE', label: 'CE Call' }, { key: 'PE', label: 'PE Put' }]}
             value={form.type}
@@ -150,17 +150,17 @@ function AddPositionForm({ onAdded }) {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div>
-          <label className="text-[10px] text-gray-500 mb-1 block">Strike Price ₹</label>
+          <label className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-1 block">Strike Price ₹</label>
           <input className={inp} placeholder="e.g. 23500" type="number" step="50"
             value={form.strike} onChange={(e) => set('strike', e.target.value)} required />
         </div>
         <div>
-          <label className="text-[10px] text-gray-500 mb-1 block">Premium Paid ₹</label>
+          <label className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-1 block">Premium Paid ₹</label>
           <input className={inp} placeholder="e.g. 120.50" type="number" step="0.05"
             value={form.entryPrice} onChange={(e) => set('entryPrice', e.target.value)} required />
         </div>
         <div>
-          <label className="text-[10px] text-gray-500 mb-1 block">Expiry Date</label>
+          <label className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-1 block">Expiry Date</label>
           <select className={inp} value={form.expiry} onChange={(e) => set('expiry', e.target.value)}>
             {expiries.map((d) => (
               <option key={d.value} value={d.value}>{d.label}</option>
@@ -172,14 +172,14 @@ function AddPositionForm({ onAdded }) {
           )}
         </div>
         <div>
-          <label className="text-[10px] text-gray-500 mb-1 block">Qty (Lots × {LOT_SIZE})</label>
+          <label className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted mb-1 block">Qty (Lots × {LOT_SIZE})</label>
           <input className={inp} placeholder="1" type="number" min="1"
             value={form.qty} onChange={(e) => set('qty', e.target.value)} required />
         </div>
       </div>
 
       <div className="flex items-center gap-3">
-        <div className="text-[10px] text-gray-600">
+        <div className="text-[10px] text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">
           {form.qty && form.entryPrice
             ? `Max risk: ₹${(parseFloat(form.entryPrice) * parseInt(form.qty || 1) * LOT_SIZE).toLocaleString('en-IN')}`
             : `Lot size: ${LOT_SIZE} shares/lot`}
@@ -187,7 +187,7 @@ function AddPositionForm({ onAdded }) {
         <button
           type="submit"
           disabled={loading}
-          className={`ml-auto flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-semibold text-white transition-colors disabled:opacity-50 ${isBuy ? 'bg-neon-cyan/30 hover:bg-neon-cyan/40 border border-neon-cyan/30' : 'bg-neon-red/30 hover:bg-neon-red/40 border border-neon-red/30'}`}
+          className={`ml-auto flex items-center gap-2 px-5 py-2 rounded-lg text-xs font-semibold text-gray-900 dark:text-wcag-text transition-colors disabled:opacity-50 ${isBuy ? 'bg-neon-cyan/30 hover:bg-neon-cyan/40 border border-neon-cyan/30' : 'bg-neon-red/30 hover:bg-neon-red/40 border border-neon-red/30'}`}
         >
           <PlusCircle size={13} />
           {loading ? 'Adding…' : `Add ${isBuy ? 'Buy' : 'Sell'} ${form.type}`}
@@ -209,19 +209,20 @@ export function Positions({ pnlData, onRefreshPositions }) {
   const totalPnL = pnlData?.reduce((s, p) => s + (p.pnl || 0), 0) || 0;
 
   return (
-    <div className="glass-card p-5">
+    <div className="glass-card card-accent-cyan p-5">
       <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-        <h2 className="text-xs font-semibold text-gray-400 flex items-center gap-2 uppercase tracking-wider">
-          <BarChart2 size={13} className="text-neon-cyan" /> Positions
-          <span className="text-[10px] text-gray-600 font-normal normal-case tracking-normal">Lot = {LOT_SIZE}</span>
-        </h2>
+        <div className="flex items-center gap-2">
+          <BarChart2 size={14} className="text-sky-500 dark:text-neon-cyan shrink-0" />
+          <h2 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-[0.1em]">Positions</h2>
+          <span className="text-[10px] text-gray-400 dark:text-wcag-muted">Lot = {LOT_SIZE}</span>
+        </div>
         <div className="flex items-center gap-3">
-          <span className={`text-xs font-bold font-mono ${colorClass(totalPnL)}`}>
-            P&L: {fmt.inr(totalPnL)}
+          <span className="text-xs font-bold font-mono text-gray-900 dark:text-wcag-text flex items-center gap-1">
+            P&L: <span className={colorClass(totalPnL)}>{totalPnL >= 0 ? '▲' : '▼'}</span> {fmt.inr(Math.abs(totalPnL))}
           </span>
           <button
             onClick={() => setShowForm((v) => !v)}
-            className="text-xs bg-cyan-900/20 hover:bg-cyan-800/30 border border-cyan-800/30 rounded-lg px-3 py-1 text-cyan-300 transition-colors"
+            className="text-xs bg-sky-50 hover:bg-sky-100 dark:bg-neon-cyan/10 dark:hover:bg-neon-cyan/20 border border-sky-200 dark:border-neon-cyan/20 rounded-lg px-3 py-1 text-sky-700 dark:text-neon-cyan transition-colors font-semibold"
           >
             {showForm ? '✕ Cancel' : '+ Add'}
           </button>
@@ -235,7 +236,7 @@ export function Positions({ pnlData, onRefreshPositions }) {
       )}
 
       {!pnlData || pnlData.length === 0 ? (
-        <p className="text-gray-600 text-xs text-center py-8">
+        <p className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted text-xs text-center py-8">
           No positions yet. Click "+ Add" to track your NIFTY options.
         </p>
       ) : (
@@ -249,31 +250,31 @@ export function Positions({ pnlData, onRefreshPositions }) {
                 <div key={pos.id} className="bg-black/25 border border-white/[0.06] rounded-xl p-3">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
-                      <span className={`font-bold text-[11px] px-1.5 py-0.5 rounded ${isBuy ? 'bg-neon-green/10 text-neon-green' : 'bg-neon-red/10 text-neon-red'}`}>
+                      <span className={`font-bold text-[11px] px-1.5 py-0.5 rounded ${isBuy ? 'bg-neon-green/10 text-emerald-700 dark:text-neon-green' : 'bg-neon-red/10 text-rose-600 dark:text-neon-red'}`}>
                         {isBuy ? 'BUY' : 'SELL'}
                       </span>
-                      <span className={`font-bold text-xs ${isCE ? 'text-neon-green' : 'text-neon-red'}`}>{pos.type}</span>
-                      <span className="text-white font-mono text-xs font-semibold">₹{pos.strike}</span>
+                      <span className={`font-bold text-xs ${isCE ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red'}`}>{pos.type}</span>
+                      <span className="text-gray-900 dark:text-wcag-text font-mono text-xs font-semibold">₹{pos.strike}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className={`font-bold text-xs font-mono ${colorClass(pos.pnl)}`}>{fmt.inr(pos.pnl)}</span>
-                      <button onClick={() => deletePos(pos.id)} className="text-gray-700 hover:text-red-400 transition-colors ml-1">
+                      <span className="font-bold text-xs font-mono text-gray-900 dark:text-wcag-text flex items-center gap-0.5"><span className={colorClass(pos.pnl)}>{pos.pnl >= 0 ? '▲' : '▼'}</span>{fmt.inr(Math.abs(pos.pnl))}</span>
+                      <button onClick={() => deletePos(pos.id)} className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted hover:text-red-900 transition-colors ml-1">
                         <Trash2 size={12} />
                       </button>
                     </div>
                   </div>
                   <div className="grid grid-cols-3 gap-1.5 text-[10px]">
-                    <div><span className="text-gray-600">Exp:</span> <span className="text-gray-400 font-mono">{pos.expiry?.slice(5, 10)}</span></div>
-                    <div><span className="text-gray-600">Lots:</span> <span className="text-gray-300 font-mono">{pos.qty}</span></div>
-                    <div><span className="text-gray-600">P&L%:</span> <span className={`font-mono font-semibold ${colorClass(pos.pnlPct)}`}>{fmt.pct(pos.pnlPct)}</span></div>
-                    <div><span className="text-gray-600">Entry:</span> <span className="text-gray-300 font-mono">₹{pos.entryPrice}</span></div>
-                    <div><span className="text-gray-600">LTP:</span> <span className="text-gray-100 font-mono font-semibold">₹{pos.currentLTP}</span></div>
-                    <div><span className="text-gray-600">PoP:</span> <span className="text-gray-400 font-mono">{pos.probOfProfit}%</span></div>
+                    <div><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Exp:</span> <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted font-mono">{pos.expiry?.slice(5, 10)}</span></div>
+                    <div><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Lots:</span> <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-text font-mono">{pos.qty}</span></div>
+                    <div><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">P&L%:</span> <span className="font-mono font-semibold text-gray-900 dark:text-wcag-text flex items-center gap-0.5"><span className={colorClass(pos.pnlPct)}>{pos.pnlPct >= 0 ? '▲' : '▼'}</span>{fmt.pct(Math.abs(pos.pnlPct))}</span></div>
+                    <div><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Entry:</span> <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-text font-mono">₹{pos.entryPrice}</span></div>
+                    <div><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">LTP:</span> <span className="text-gray-900 dark:text-wcag-text font-mono font-semibold">₹{pos.currentLTP}</span></div>
+                    <div><span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">PoP:</span> <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted font-mono">{pos.probOfProfit}%</span></div>
                   </div>
                   <div className="flex gap-3 mt-2 pt-2 border-t border-white/[0.04] text-[10px]">
-                    <span className="text-gray-600">Δ <span className="text-blue-300 font-mono">{pos.greeks?.delta}</span></span>
-                    <span className="text-gray-600">Θ <span className="text-orange-300 font-mono">{pos.greeks?.theta}</span></span>
-                    <span className="text-gray-600">Γ <span className="text-purple-300 font-mono">{pos.greeks?.gamma}</span></span>
+                    <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Δ <span className="text-blue-300 font-mono">{pos.greeks?.delta}</span></span>
+                    <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Θ <span className="text-orange-300 font-mono">{pos.greeks?.theta}</span></span>
+                    <span className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted">Γ <span className="text-purple-300 font-mono">{pos.greeks?.gamma}</span></span>
                   </div>
                 </div>
               );
@@ -284,7 +285,7 @@ export function Positions({ pnlData, onRefreshPositions }) {
           <div className="hidden sm:block overflow-x-auto">
             <table className="w-full text-xs min-w-[640px]">
               <thead>
-                <tr className="text-gray-600 border-b border-white/[0.06]">
+                <tr className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted border-b border-white/[0.06]">
                   {['Dir', 'Type', 'Strike', 'Expiry', 'Lots', 'Entry ₹', 'LTP ₹', 'P&L', 'P&L%', 'PoP%', 'Δ', 'Θ', 'Γ', ''].map((h) => (
                     <th key={h} className="text-left py-2 pr-3 font-medium whitespace-nowrap text-[10px] uppercase tracking-wider">{h}</th>
                   ))}
@@ -297,24 +298,24 @@ export function Positions({ pnlData, onRefreshPositions }) {
                   return (
                     <tr key={pos.id} className="border-b border-white/[0.04] hover:bg-white/[0.02] transition">
                       <td className="py-2 pr-3">
-                        <span className={`font-bold text-[11px] px-1.5 py-0.5 rounded ${isBuy ? 'bg-neon-green/10 text-neon-green' : 'bg-neon-red/10 text-neon-red'}`}>
+                        <span className={`font-bold text-[11px] px-1.5 py-0.5 rounded ${isBuy ? 'bg-neon-green/10 text-emerald-700 dark:text-neon-green' : 'bg-neon-red/10 text-rose-600 dark:text-neon-red'}`}>
                           {isBuy ? 'B' : 'S'}
                         </span>
                       </td>
-                      <td className="pr-3"><span className={`font-bold ${isCE ? 'text-neon-green' : 'text-neon-red'}`}>{pos.type}</span></td>
-                      <td className="pr-3 text-gray-200 font-mono text-xs">{pos.strike}</td>
-                      <td className="pr-3 text-gray-500 whitespace-nowrap font-mono text-xs">{pos.expiry?.slice(0, 10)}</td>
-                      <td className="pr-3 text-gray-400 font-mono">{pos.qty}</td>
-                      <td className="pr-3 text-gray-300 font-mono">₹{pos.entryPrice}</td>
-                      <td className="pr-3 text-gray-100 font-semibold font-mono">₹{pos.currentLTP}</td>
-                      <td className={`pr-3 font-bold font-mono ${colorClass(pos.pnl)}`}>{fmt.inr(pos.pnl)}</td>
-                      <td className={`pr-3 font-semibold font-mono ${colorClass(pos.pnlPct)}`}>{fmt.pct(pos.pnlPct)}</td>
-                      <td className="pr-3 text-gray-400 font-mono">{pos.probOfProfit}%</td>
+                      <td className="pr-3"><span className={`font-bold ${isCE ? 'text-emerald-700 dark:text-neon-green' : 'text-rose-600 dark:text-neon-red'}`}>{pos.type}</span></td>
+                      <td className="pr-3 text-gray-800 dark:text-wcag-text font-mono text-xs">{pos.strike}</td>
+                      <td className="pr-3 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted whitespace-nowrap font-mono text-xs">{pos.expiry?.slice(0, 10)}</td>
+                      <td className="pr-3 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted font-mono">{pos.qty}</td>
+                      <td className="pr-3 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-text font-mono">₹{pos.entryPrice}</td>
+                      <td className="pr-3 text-gray-900 dark:text-wcag-text font-semibold font-mono">₹{pos.currentLTP}</td>
+                      <td className="pr-3 font-bold font-mono text-gray-900 dark:text-wcag-text"><span className={colorClass(pos.pnl)}>{pos.pnl >= 0 ? '▲' : '▼'}</span> {fmt.inr(Math.abs(pos.pnl))}</td>
+                      <td className="pr-3 font-semibold font-mono text-gray-900 dark:text-wcag-text"><span className={colorClass(pos.pnlPct)}>{pos.pnlPct >= 0 ? '▲' : '▼'}</span> {fmt.pct(Math.abs(pos.pnlPct))}</td>
+                      <td className="pr-3 text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted font-mono">{pos.probOfProfit}%</td>
                       <td className="pr-3 text-blue-300 font-mono">{pos.greeks?.delta}</td>
                       <td className="pr-3 text-orange-300 font-mono">{pos.greeks?.theta}</td>
                       <td className="pr-3 text-purple-300 font-mono">{pos.greeks?.gamma}</td>
                       <td>
-                        <button onClick={() => deletePos(pos.id)} className="text-gray-700 hover:text-red-400 transition-colors">
+                        <button onClick={() => deletePos(pos.id)} className="text-gray-700 dark:text-wcag-muted dark:text-wcag-muted dark:text-wcag-muted hover:text-red-900 transition-colors">
                           <Trash2 size={12} />
                         </button>
                       </td>

@@ -383,9 +383,7 @@ async function fetchFIIDII() {
   return _emptyFII();
 }
 
-function _emptyFII() {
-  return { fii: { buy: 0, sell: 0, net: 0 }, dii: { buy: 0, sell: 0, net: 0 }, combined_net: 0, dataDate: null };
-}
+const _emptyFII = () => ({ fii: { net: 0 }, dii: { net: 0 }, combined_net: 0, dataDate: new Date().toISOString() });
 
 // ─── News (RSS multi-source) ──────────────────────────────────────────────────
 
@@ -628,6 +626,9 @@ function runTechnicals(dailyBars, weeklyBars) {
 
 // ─── Full Refresh Pipeline ─────────────────────────────────────────────────────
 
+const { scrapeUpstoxMaxPain, scrapeGiftNifty } = require('./upstoxScraper');
+const { getGiftNiftyFromSheet } = require('./googleSheetsFetcher');
+
 async function runFullRefresh(onProgress, prevSnapshot = null) {
   const step = (pct, text) => onProgress && onProgress(pct, text);
   const prev = prevSnapshot;
@@ -645,8 +646,32 @@ async function runFullRefresh(onProgress, prevSnapshot = null) {
     const fiiP = fetchFIIDII().catch((e) => { console.warn('[Fetch] FII/DII failed:', e.message); return null; });
     const macroP = fetchMacroPrices().catch((e) => { console.warn('[Fetch] Macro failed:', e.message); return null; });
     const newsP = fetchNews().catch((e) => { console.warn('[Fetch] News failed:', e.message); return null; });
+    // GIFT Nifty: Google Sheets primary → Puppeteer fallback
+    const giftP = (async () => {
+      // Strategy 1: Google Sheets (zero-code, block-proof)
+      try {
+        const sheetVal = await getGiftNiftyFromSheet();
+        if (sheetVal) {
+          console.log('[Fetch] GIFT Nifty from Google Sheets:', sheetVal);
+          return sheetVal;
+        }
+      } catch (e) {
+        console.warn('[Fetch] Google Sheets GIFT Nifty failed:', e.message);
+      }
+      // Strategy 2: Puppeteer scraping fallback
+      try {
+        const scraped = await scrapeGiftNifty();
+        if (scraped) {
+          console.log('[Fetch] GIFT Nifty from Puppeteer fallback:', scraped);
+          return scraped;
+        }
+      } catch (e) {
+        console.warn('[Fetch] Puppeteer GIFT Nifty failed:', e.message);
+      }
+      return null;
+    })();
 
-    step(25, 'Fetching Option Chain…');
+    step(25, 'Fetching Option Chain & Pre-Market Data…');
     let dailyBars = await dailyP;
     let weeklyBars = await weeklyP;
     let vix = await vixP;
@@ -684,7 +709,8 @@ async function runFullRefresh(onProgress, prevSnapshot = null) {
     }
 
     const chain = optData.chain;
-    const maxPain = calcMaxPain(chain);
+    const upstoxMaxPain = await scrapeUpstoxMaxPain();
+    const maxPain = upstoxMaxPain || calcMaxPain(chain);
     const pcr = calcPCR(chain);
     const gex = calcGEX(chain, spot);
     const atm = chain.find((r) => Math.abs(r.strike - spot) < 100) || chain[0];
@@ -727,6 +753,36 @@ async function runFullRefresh(onProgress, prevSnapshot = null) {
 
     const wCloses = weekly.map((b) => b.close).filter(Boolean);
     const elliottWave = detectElliottWave(wCloses);
+    const { detectNeoWave, generatePredictions } = require('../utils/calculations');
+    const neoWave = detectNeoWave(wCloses, elliottWave);
+
+    let giftNiftyLive = await giftP;
+    if (!giftNiftyLive && prev?.giftNifty) {
+      giftNiftyLive = prev.giftNifty;
+      stale.push('GIFT Nifty Proxy');
+    }
+
+    if (giftNiftyLive && macroPrices) {
+      macroPrices.unshift({
+        ticker: "GIFNIFTY",
+        label: "GIFT Nifty (Live Proxy)",
+        price: giftNiftyLive,
+        change: parseFloat((giftNiftyLive - spot).toFixed(2)),
+        changePct: parseFloat((((giftNiftyLive - spot) / spot) * 100).toFixed(2)),
+        timestamp: new Date().toLocaleTimeString('en-US', { hour12: false })
+      });
+    }
+
+    if (giftNiftyLive && macroPrices) {
+      // NOTE: Fallback in case of duplicate injections skipped because we re-checked
+    }
+
+    const predictions = generatePredictions({
+      spot, maxPain, pcr, sentiment, gex, 
+      fiiNet: fii.combined_net || 0,
+      elliottWave, neoWave, tech, news, macroPrices,
+      giftNiftyLive
+    });
 
     const LOT_SIZE = 65;
     const tradeSetups = generateTradeSetups({
@@ -806,6 +862,8 @@ async function runFullRefresh(onProgress, prevSnapshot = null) {
       fiiDate: fii.dataDate || null,
       sentiment: { ...sentiment, dailyChange, weeklyChange },
       elliottWave,
+      neoWave,
+      predictions,
       tradeSetups,
       chain: chain.slice(0, 300),
       macroPrices: macroPrices || [],

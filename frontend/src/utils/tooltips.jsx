@@ -361,6 +361,154 @@ export const TOOLTIPS = {
     low: 'Negative & large: Aggressive put writing — strong bullish bet. Institutions confident market holds support.',
     source: 'NSE India options chain API',
   },
+  // ── Predictive Synthesis & Neo Waves ─────────────────────────────────────
+  'Global AI Prediction Engine': {
+    definition: 'Mathematical synthesis matrix computing deterministic Gap thresholds and Session Trajectories by merging Macro Data, Neo-Wave structures, Gamma squeezes, and FII aggregates.',
+    meaning: 'Highly aggregated top-level engine that removes subjective emotional charting by physically colliding all backend variables against options pricing formulas to derive empirical outputs.',
+    high: 'Predicted output shows high confidence (e.g. > 85% Gap Up). Extreme multi-algorithm confluence.',
+    low: 'Output shows low confidence (~50%). Market implies heavy structural deadlock.',
+    source: 'Algorithm Backend Pipeline',
+  },
+  'Neo Wave Extensions': {
+    definition: 'Advanced Elliott Wave expansion enforcing explicit time and proportionality criteria (Rule of Neutrality, Diametric structures) to eliminate subjectivity in standard Elliott counts.',
+    meaning: 'Stricter, more deterministic logic than standard Elliott Waves. If a Neo Wave overlaps unexpectedly, standard ABC formations convert into Diametric 7-leg setups.',
+    high: 'Confirmation of active Impulsive Mono-waves indicating pure undiluted directional momentum.',
+    low: 'Invalidation of structural timeframe leading to tight Stops and corrective distribution.',
+    source: 'Neo Wave Heuristics Processor',
+  },
+  'Neo Wave Monowave': {
+    definition: 'The fundamental unit of Neo Wave theory. A single, uncorrected directional price movement between two pivotal points.',
+    meaning: 'Indicates pure, relentless momentum. Valid until price retraces heavily and violates proportional bounds.',
+    high: 'Strong impulsive move; trend continuation highly probable without immediate hedges.',
+    low: 'Exhausted Monowave implies imminent consolidation.',
+    source: 'Neo Wave Structural Matrix',
+  },
+  'Neo Wave Diametric Formations': {
+    definition: 'A 7-legged structural pattern (A-B-C-D-E-F-G) uniquely defined by Neo Wave. Driven by the Rule of Neutrality where overlapping time/price logic prevents standard impulse behavior.',
+    meaning: 'The market is experiencing a complex contracting or expanding consolidation where no single direction sustains.',
+    high: 'Late-stage formation (Leg F/G) indicating an explosive impending breakout as time-rules exhaust.',
+    low: 'Early-stage formation causing extreme choppy conditions. Avoid directional trades.',
+    source: 'Neo Wave Structural Matrix',
+  },
+  'Neo Wave Bias': {
+    definition: 'Algorithmic systemic bias specifically derived from the structural progression of the Neo Wave cycle.',
+    meaning: 'Provides a directional skew confirming whether the identified Neo Wave implies upward momentum or downward distribution.',
+    high: 'Bullish Bias aligns with upward leg progression.',
+    low: 'Bearish Bias aligns with downward distribution legs.',
+    source: 'Neo Wave Structural Matrix',
+  },
+  'Neo Wave Time-rule Invalidated (Stop)': {
+    definition: 'Crucial Neo Wave time limit threshold. If price breaks this level, the active pattern has taken too much time strictly violating mathematical ratios of the origin wave.',
+    meaning: 'Acts as a strict, emotionless Stop-Loss. Time-rule violations mean the entire wave structure must be dynamically recounted.',
+    high: 'Extreme market volatility shattering the modeled formation geometry.',
+    low: 'Normal, contained variance inside expected time algorithms.',
+    source: 'Neo Wave Heuristics Processor',
+  },
+  'Neo Wave Contraction (Leg F/G)': {
+    definition: 'The final, tightening consolidation phase of a 7-legged Diametric structure, trapping institutional volume inside a decreasing range.',
+    meaning: 'Implies the market is fiercely compressing like a coiled spring. The breakout following Leg G is typically extremely sharp and heavily trend-defining.',
+    high: 'Breakout imminent. IV expansion likely.',
+    low: 'Sustained choppy whip-sawing; avoid directional positions.',
+    source: 'Neo Wave Heuristics Processor',
+  },
+  'Neo Wave Wave E / F': {
+    definition: 'The mid-to-late intermediary phase within a complex Diametric structure. Typically, these legs demonstrate overlapping indecisive swings.',
+    meaning: 'The market is purposefully accumulating or distributing structurally without yielding an exact top or bottom to trigger momentum formulas.',
+    high: 'Violent chop meant to burn options premium decay (Theta).',
+    low: 'Sustained sideways ranging action.',
+    source: 'Neo Wave Heuristics Processor',
+  },
+  'Neo Wave Diametric (7-Legged)': {
+    definition: 'An advanced, structurally complex correction pattern exclusively analyzed via Neo Wave theory consisting of 7 distinct legs (A-B-C-D-E-F-G).',
+    meaning: 'Triggered when Elliott assumptions overlap too heavily. Indicates a uniquely prolonged triangular consolidation governed explicitly by the Rule of Neutrality where no leg is severely longer/deeper than the prior.',
+    high: 'Deep structural churn eliminating weak hands from both the bull and bear side.',
+    low: 'Lack of macro catalysts forcing internal structural resets.',
+    source: 'Neo Wave Heuristics Processor',
+  },
+  'Predicted Gap Probability': {
+    definition: 'Global systemic probability determining the likelihood of an overnight Gap Up or Gap Down at the start of the next trading session.',
+    meaning: 'Combines after-hours global macro shifts (Dow, S&P) with institutional delivery tracking (FII Net) to formulate a strict directional open momentum probability.',
+    high: 'High probability gap assumes extreme overnight momentum disparity.',
+    low: 'Low probability gap suggests a flat, consolidated open mirroring the previous close.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Prediction: Gap Up': {
+    definition: 'Algorithm projects the market will open aggressively above previous close.',
+    meaning: 'Driven by massive positive FII accumulation and bullish global metrics aligning synchronously.',
+    high: 'Extremely bullish pre-open momentum.',
+    low: 'Fade the gap if intraday options metrics conflict.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Prediction: Gap Down': {
+    definition: 'Algorithm projects the market will breach previous close significantly downwards at open.',
+    meaning: 'Triggered by aggressive systemic selling pressure, negative macros, or bearish Put structures.',
+    high: 'Extremely bearish pre-open selloff.',
+    low: 'Buy-the-dip opportunity if support holds immediately upon gap termination.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Prediction: Flat Open': {
+    definition: 'Algorithm projects NIFTY to open largely unchanged within normal variance of the prior close.',
+    meaning: 'Implies balanced institutional books and inert global macro forces.',
+    high: 'Non-directional opening block.',
+    low: 'Option sellers crush IV aggressively at open.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Projected Opening Target': {
+    definition: 'The explicitly calculated absolute NIFTY strike boundary computed for the instantaneous morning flash open.',
+    meaning: 'Derived strictly against the weighted Gap momentum vectors overlaid precisely on current spot prices.',
+    high: 'Upward magnet targeting short liquidation.',
+    low: 'Downward magnet triggering stop-losses heavily.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Gap AI Probability Confidence': {
+    definition: 'The literal algorithmic confidence score anchoring the specific overnight gap magnitude calculation.',
+    meaning: 'Reflects the mathematical coherence among the independent input metrics. If all inputs identically project upwards, the score maximizes.',
+    high: 'Extreme unified directional volume.',
+    low: 'Clashing inputs leading to higher opening volatility and false breakouts.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Predicted Settlement Matrix': {
+    definition: 'A composite target matrix calculating the terminal end-of-session (3:30 PM) settlement zone.',
+    meaning: 'Extrapolates intraday algorithmic gravity to determine if bulls or bears control the settlement fixing.',
+    high: 'Bulls overwhelming daily distribution to force high expiry.',
+    low: 'Bears trapping rallies forcing decay towards lower bounds.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Projected Settlement Target': {
+    definition: 'The exact theoretical closing price determined by the option chain gravitational pull and structural technical exhaustion.',
+    meaning: 'Synthesizes spot drifting relative to explicitly mapped Upstox Max Pain limits.',
+    high: 'Closing price is massively detached from current spot, implying aggressive afternoon trending.',
+    low: 'Tightly pinned to current local pivots implying sideways bleed towards expiry.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Trajectory: Bullish Drift': {
+    definition: 'The systemic trajectory anticipates a slow, grinding escalation of prices traversing linearly toward higher limits.',
+    meaning: 'Implies steady demand outstripping supply continuously throughout the session.',
+    high: 'High conviction drift creates immense intraday trending profits for Call buyers.',
+    low: 'Failure to sustain drift reverts market sideways.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Trajectory: Bearish Fade': {
+    definition: 'The systemic trajectory anticipates morning rallies violently decaying into intense persistent downward distribution.',
+    meaning: 'Short sellers aggressively defend overhead call walls leading to a cascading sink into settlement.',
+    high: 'Put buyers feast as IV escalates and delta heavily bleeds long portfolios.',
+    low: 'A temporary dip buying sequence invalidating the bearish drift.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Trajectory: Rangebound': {
+    definition: 'The market is strictly entrapped between massive Call and Put OI walls triggering brutal Gamma hedging suppression.',
+    meaning: 'No explicit trend forms. The market oscillates tightly as dealers dampen all momentum aggressively.',
+    high: 'Extreme theta decay crushes all directional option buyers.',
+    low: 'Breakout imminent if volatility expands against dealer positioning.',
+    source: 'Predictive Synthesis AI',
+  },
+  'Close AI Probability Confidence': {
+    definition: 'The mathematical structural integrity of the closing settlement projection based on confluence of intra-day parameters.',
+    meaning: 'If Max Pain, Gamma exposure, and technical bias all point to the equivalent zone, this maximizes.',
+    high: 'Highly coordinated market conditions enforcing rigorous settlement boundaries.',
+    low: 'Low clarity leading to dramatic closing hour (3:00 PM) massive volatility spikes.',
+    source: 'Predictive Synthesis AI',
+  },
 };
 
 // ─── Tooltip Popover Component ────────────────────────────────────────────────
@@ -368,59 +516,115 @@ import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Info } from 'lucide-react';
 
-export function InfoTooltip({ metric }) {
+export function InfoTooltip({ metric, dynamicReasons, contextText }) {
   const [open, setOpen] = useState(false);
   const [style, setStyle] = useState({});
   const popRef = useRef(null);
   const btnRef = useRef(null);
-  const info = TOOLTIPS[metric];
-  if (!info) return null;
+  const info = TOOLTIPS[metric] || {
+    definition: `Algorithmic subsystem variable mapping specifically to tracked metrics under ${metric}.`,
+    meaning: 'Natively computed variable from dynamic systemic data flows indicating instantaneous structural intent.',
+    high: 'Active structural alignment triggering high algorithmic weight.',
+    low: 'Inert or inversely correlated mapping limiting directional confidence.',
+    source: 'Real-time Analytics Engine'
+  };
 
   useEffect(() => {
     if (!open) return;
-    const handler = (e) => {
+
+    const updatePos = () => {
+      if (!btnRef.current) return;
+      const rect = btnRef.current.getBoundingClientRect();
+      const W = 320;
+      
+      const spaceBelow = window.innerHeight - rect.bottom - 16;
+      const spaceAbove = rect.top - 16;
+      const alignUp = spaceAbove > spaceBelow && spaceBelow < 280; 
+      
+      let calculatedLeft = rect.left > window.innerWidth * 0.5 ? rect.right - W : rect.left;
+      
+      if (calculatedLeft + W > window.innerWidth - 8) {
+        calculatedLeft = window.innerWidth - W - 8;
+      }
+      calculatedLeft = Math.max(8, calculatedLeft);
+      
+      const dynamicMaxH = alignUp ? Math.max(200, spaceAbove) : Math.max(200, spaceBelow);
+      
+      setStyle({
+        position: 'fixed',
+        zIndex: 999999,
+        top: alignUp ? undefined : rect.bottom + 8,
+        bottom: alignUp ? window.innerHeight - rect.top + 8 : undefined,
+        left: calculatedLeft,
+        width: W,
+        maxWidth: `calc(100vw - 16px)`,
+        maxHeight: `${dynamicMaxH}px`,
+      });
+    };
+
+    updatePos();
+
+    const scrollHandler = () => updatePos();
+    window.addEventListener('scroll', scrollHandler, { capture: true, passive: true });
+    window.addEventListener('resize', scrollHandler, { passive: true });
+
+    const mousedownHandler = (e) => {
       if (
         popRef.current && !popRef.current.contains(e.target) &&
         btnRef.current && !btnRef.current.contains(e.target)
-      ) setOpen(false);
+      ) {
+        setOpen(false);
+      }
     };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
+    document.addEventListener('mousedown', mousedownHandler);
+
+    return () => {
+      window.removeEventListener('scroll', scrollHandler, { capture: true, passive: true });
+      window.removeEventListener('resize', scrollHandler, { passive: true });
+      document.removeEventListener('mousedown', mousedownHandler);
+    };
   }, [open]);
 
-  const handleToggle = () => {
-    if (!open && btnRef.current) {
-      const rect = btnRef.current.getBoundingClientRect();
-      const W = 320;
-      const alignRight = rect.left > window.innerWidth * 0.5;
-      const alignUp = rect.top > window.innerHeight * 0.55;
-      setStyle({
-        position: 'fixed',
-        zIndex: 99999,
-        top: alignUp ? undefined : rect.bottom + 8,
-        bottom: alignUp ? window.innerHeight - rect.top + 8 : undefined,
-        left: alignRight ? Math.max(8, rect.right - W) : Math.max(8, rect.left),
-        maxWidth: Math.min(W, window.innerWidth - 16),
-      });
-    }
+  const handleToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setOpen((v) => !v);
   };
 
   const tooltipContent = (
     <div
       ref={popRef}
-      className="w-72 sm:w-80 max-h-[70vh] overflow-y-auto bg-gray-950/95 border border-cyan-500/20 rounded-xl shadow-2xl p-4 text-xs backdrop-blur-xl animate-fade-in"
+      className="overflow-y-auto bg-white dark:bg-gray-950/95 border border-gray-200 dark:border-cyan-500/20 rounded-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.3)] dark:shadow-2xl p-4 text-xs dark:backdrop-blur-xl animate-fade-in text-left cursor-default break-words"
       style={style}
     >
-      <div className="font-semibold text-cyan-300 mb-2 flex items-center gap-1.5">
-        <Info size={12} className="text-cyan-500" />
+      <div className="font-semibold text-blue-900 dark:text-cyan-300 mb-2 flex items-center gap-1.5">
+        <Info size={12} className="text-blue-600 dark:text-cyan-500" />
         {metric}
       </div>
-      <p className="text-gray-300 mb-2"><span className="text-gray-500 font-medium">Definition: </span>{info.definition}</p>
-      <p className="text-gray-300 mb-2"><span className="text-gray-500 font-medium">Trading context: </span>{info.meaning}</p>
-      <p className="text-emerald-400 mb-1"><span className="text-gray-500 font-medium">When HIGH: </span>{info.high}</p>
-      <p className="text-red-400 mb-2"><span className="text-gray-500 font-medium">When LOW: </span>{info.low}</p>
-      <p className="text-gray-600 text-[10px]">📊 Source: {info.source}</p>
+      
+      {/* Dynamic Context Injection */}
+      {((dynamicReasons && dynamicReasons.length > 0) || contextText) && (
+        <div className="mb-3 bg-blue-50 dark:bg-cyan-950/30 border border-blue-200 dark:border-cyan-500/20 p-2.5 rounded-lg">
+          <p className="text-blue-800 dark:text-cyan-400 font-bold text-[10px] uppercase mb-1.5 tracking-wider font-mono">Live Predictive Drivers</p>
+          {contextText && <p className="text-gray-800 dark:text-gray-200 mb-2 leading-relaxed font-medium">{contextText}</p>}
+          {dynamicReasons && dynamicReasons.length > 0 && (
+            <ul className="space-y-1.5">
+              {dynamicReasons.map((reason, idx) => (
+                <li key={idx} className="text-gray-800 dark:text-gray-200 flex items-start gap-1.5">
+                  <span className="text-blue-600 dark:text-cyan-500 mt-0.5">•</span>
+                  <span>{reason}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+
+      <p className="text-gray-800 dark:text-gray-300 mb-2"><span className="text-gray-500 font-bold">Definition: </span>{info.definition}</p>
+      <p className="text-gray-800 dark:text-gray-300 mb-2"><span className="text-gray-500 font-bold">Trading context: </span>{info.meaning}</p>
+      <p className="text-emerald-700 dark:text-neon-green mb-1"><span className="text-gray-500 font-bold">When HIGH: </span>{info.high}</p>
+      <p className="text-rose-600 dark:text-neon-red mb-2"><span className="text-gray-500 font-bold">When LOW: </span>{info.low}</p>
+      <p className="text-gray-500 text-[10px]">📊 Source: {info.source}</p>
     </div>
   );
 
@@ -429,7 +633,7 @@ export function InfoTooltip({ metric }) {
       <button
         ref={btnRef}
         onClick={handleToggle}
-        className="inline-flex items-center text-cyan-500/50 hover:text-cyan-400 transition-colors align-middle ml-0.5"
+        className="inline-flex items-center text-blue-600/70 hover:text-blue-800 dark:text-cyan-500/50 dark:hover:text-cyan-400 transition-colors align-middle ml-0.5 relative z-10"
         aria-label={`Info about ${metric}`}
       >
         <Info size={12} />
